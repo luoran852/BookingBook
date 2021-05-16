@@ -38,7 +38,7 @@ public class RankingFragment extends Fragment {
             books.add(new ItemBook(R.drawable.img_book_example2));
         }
 
-        //recyclerview 전체 랭킹순위
+        //recyclerview 전체 랭킹 순위
         recyclerView_ranking_all = (RecyclerView)view.findViewById(R.id.rv_ranking);
         adapter = new RecyclerViewAdapter(getContext(), books);
 
