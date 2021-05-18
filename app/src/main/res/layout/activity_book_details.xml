@@ -47,7 +47,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/searchedYear"
+            android:id="@+id/txt_year"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
