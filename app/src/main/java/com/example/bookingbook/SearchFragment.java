@@ -18,7 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SearchFragment extends Fragment {
 
@@ -27,11 +35,17 @@ public class SearchFragment extends Fragment {
     RvAdapter mAdapter;
     ArrayList searchedItems;
 
-    //Git Test Comment
+    private String CLIENT_ID = "3_FP0gfD3YHrOdUGUrm0";
+    private String CLIENT_SECRET = "eIZ969Ubz1";
+    private String baseUrl = "https://openapi.naver.com/v1/search/";
+    private MovieRequest movieRequest;
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -94,6 +108,15 @@ public class SearchFragment extends Fragment {
     }
 
     public void search(View view, String search) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        movieRequest= retrofit.create(MovieRequest.class);
+
+        Call<MovieResponse> callGetBook = movieRequest.getBook(CLIENT_ID, CLIENT_SECRET, search);
+        callGetBook.enqueue(retrofitCallback);
+
         searchedItems.add(new ItemSearched(R.drawable.img_book_example2, search, "2016", "기시미 이치로", "전경아", "인플루엔셜"));
         mRecyclerView = (RecyclerView)view.findViewById(R.id.rvSearched);
         mLayoutManager = new LinearLayoutManager(getActivity());
@@ -104,6 +127,32 @@ public class SearchFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mRecyclerView.setVisibility(View.VISIBLE);
+
     }
+    private Callback<MovieResponse> retrofitCallback = new Callback<MovieResponse>() {
+        @Override
+        public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
+            if (response.isSuccessful()) {
+                Log.d("ResponseSuccess", "Enter");
+                int total = response.body().getItems().length;
+                Items[] booksSearched = response.body().getItems();
+                for (int i=0; i<total; i++) {
+                    Log.d("Response", String.valueOf(booksSearched[i]));
+                }
+            }
+            else {
+                Log.d("ResponseError", response.raw().toString());
+            }
+
+        }
+
+        @Override
+        public void onFailure(Call<MovieResponse> call, Throwable t) {
+            Log.d("Response", "Fail");
+            t.printStackTrace();
+
+        }
+    };
+
 
 }
