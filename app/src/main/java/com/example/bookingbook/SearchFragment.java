@@ -27,6 +27,8 @@ public class SearchFragment extends Fragment {
     RvAdapter mAdapter;
     ArrayList searchedItems;
 
+    //Git Test Comment
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
