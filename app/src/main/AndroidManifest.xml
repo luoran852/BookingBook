@@ -23,6 +23,7 @@
         <activity android:name=".SectionActivity" />
         <activity android:name=".NonFictionActivity" />
         <activity android:name=".NovelActivity" />
+        <activity android:name=".BookDetailsActivity" />
     </application>
 
 </manifest>

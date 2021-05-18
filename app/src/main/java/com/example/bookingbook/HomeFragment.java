@@ -96,6 +96,16 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        //recyclerView item clicked
+        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int pos) {
+                // 상세 액티비티로 이동
+                Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
 }
