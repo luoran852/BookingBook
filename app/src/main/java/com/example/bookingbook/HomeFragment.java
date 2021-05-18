@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,8 @@ public class HomeFragment extends Fragment {
     private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
     private ConstraintLayout section;
 
+    private TextView txt_classic_novel;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,6 +38,17 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         section = (ConstraintLayout)view.findViewById(R.id.section_click);
+
+        txt_classic_novel = (TextView)view.findViewById(R.id.txt_home_classic_novel);
+
+        txt_classic_novel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 상세 액티비티로 이동
+                Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
 
         for(int i=0; i<5; i++) {
             books.add(new ItemBook(R.drawable.img_book_example));
