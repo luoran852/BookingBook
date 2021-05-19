@@ -45,6 +45,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
 
         txt_classic_novel = (TextView)view.findViewById(R.id.txt_home_classic_novel);
 
+        // 임시 클릭리스너(고전소설)
         txt_classic_novel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

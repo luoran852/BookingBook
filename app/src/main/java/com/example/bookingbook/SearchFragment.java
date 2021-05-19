@@ -1,5 +1,6 @@
 package com.example.bookingbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -28,7 +29,9 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class SearchFragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class SearchFragment extends Fragment implements RvAdapter.OnBookClickListener {
 
     RecyclerView mRecyclerView ;
     RecyclerView.LayoutManager mLayoutManager;
@@ -120,7 +123,7 @@ public class SearchFragment extends Fragment {
         //searchedItems.add(new ItemSearched(R.drawable.img_book_example2, search, "2016", "기시미 이치로", "전경아", "인플루엔셜"));
         mRecyclerView = (RecyclerView)view.findViewById(R.id.rvSearched);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new RvAdapter(searchedItems);
+        mAdapter = new RvAdapter(searchedItems, this);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -158,4 +161,12 @@ public class SearchFragment extends Fragment {
     };
 
 
+    @Override
+    public void onBookClick(int position) {
+        Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+
+        // 세부 액티비티로 이동
+        Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        startActivity(intent);
+    }
 }
