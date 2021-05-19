@@ -87,7 +87,7 @@ public class SearchFragment extends Fragment {
                 recommends.setVisibility(View.VISIBLE);
                 tvRec.setVisibility(View.VISIBLE);
                 searchName.setText(searchString);
-                searchedItems.add(new ItemSearched(R.drawable.img_book_example, searchString, "2010", "리처드 도킨스", "홍영남", "을유문화사"));
+                //searchedItems.add(new ItemSearched(R.drawable.img_book_example, searchString, "2010", "리처드 도킨스", "홍영남", "을유문화사"));
                 search(view, searchString);
             }
         });
@@ -115,7 +115,7 @@ public class SearchFragment extends Fragment {
         Call<MovieResponse> callGetBook = movieRequest.getBook(CLIENT_ID, CLIENT_SECRET, search);
         callGetBook.enqueue(retrofitCallback);
 
-        searchedItems.add(new ItemSearched(R.drawable.img_book_example2, search, "2016", "기시미 이치로", "전경아", "인플루엔셜"));
+        //searchedItems.add(new ItemSearched(R.drawable.img_book_example2, search, "2016", "기시미 이치로", "전경아", "인플루엔셜"));
         mRecyclerView = (RecyclerView)view.findViewById(R.id.rvSearched);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mAdapter = new RvAdapter(searchedItems);
@@ -136,6 +136,9 @@ public class SearchFragment extends Fragment {
                 Items[] booksSearched = response.body().getItems();
                 for (int i=0; i<total; i++) {
                     Log.d("Response", String.valueOf(booksSearched[i]));
+                    searchedItems.add(new ItemSearched(booksSearched[i].getImage(), booksSearched[i].getTitle(), booksSearched[i].getPubdate(),
+                            booksSearched[i].getAuthor(), booksSearched[i].getPublisher()));
+                    mAdapter.notifyDataSetChanged();
                 }
             }
             else {

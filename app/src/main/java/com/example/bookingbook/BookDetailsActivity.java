@@ -26,7 +26,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     TextView txt_title, txt_author, txt_translator, txt_publisher, txt_summary, txt_ISBN;
     String title, author, publisher, ISBN, imageUrl;
     BitmapDrawable drawable;
-    Bitmap bitmap = drawable.getBitmap();
+    Bitmap bitmap;
 
 
     private FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
@@ -38,7 +38,6 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
-
 
         img_book = findViewById(R.id.searched_detail_img);
         drawable = (BitmapDrawable) img_book.getDrawable();

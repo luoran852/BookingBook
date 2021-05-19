@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
@@ -29,12 +31,16 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RvAdapter.ViewHolder holder, int position) {
-        holder.searchedPoster.setImageResource(contents.get(position).image);
+        //holder.searchedPoster.setImageResource(contents.get(position).image);
         holder.searchedTitle.setText(contents.get(position).title);
         holder.searchedYear.setText(contents.get(position).year);
         holder.searchedAuthor.setText(contents.get(position).author);
-        holder.searchedTranslator.setText(contents.get(position).translator);
+        //holder.searchedTranslator.setText(contents.get(position).translator);
         holder.searchedPublisher.setText(contents.get(position).publisher);
+
+        Glide.with(holder.itemView.getContext())
+                .load(contents.get(position).getImage())
+                .into(holder.searchedPoster);
     }
 
     @Override
@@ -47,7 +53,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
         TextView searchedTitle;
         TextView searchedAuthor;
         TextView searchedYear;
-        TextView searchedTranslator;
+        //TextView searchedTranslator;
         TextView searchedPublisher;
 
         public ViewHolder(@NonNull View itemView) {
@@ -57,7 +63,7 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.ViewHolder> {
             searchedTitle = (TextView)itemView.findViewById(R.id.searchedTitle);
             searchedAuthor = (TextView)itemView.findViewById(R.id.searchedAuthor);
             searchedYear = (TextView)itemView.findViewById(R.id.searchedYear);
-            searchedTranslator = (TextView)itemView.findViewById(R.id.searchedTranslator);
+            //searchedTranslator = (TextView)itemView.findViewById(R.id.searchedTranslator);
             searchedPublisher = (TextView)itemView.findViewById(R.id.searchedPublisher);
         }
     }

@@ -95,34 +95,34 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/translation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal"
-        app:layout_constraintStart_toEndOf="@+id/searchedPoster"
-        app:layout_constraintTop_toBottomOf="@+id/author">
+<!--    <LinearLayout-->
+<!--        android:id="@+id/translation"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="15dp"-->
+<!--        android:layout_marginLeft="15dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        android:orientation="horizontal"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/searchedPoster"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/author">-->
 
-        <TextView
-            android:id="@+id/searchedTranslator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="홍영남"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/searchedTranslator"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="홍영남"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18sp" />-->
 
-        <TextView
-            android:id="@+id/txt_translation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" 옮김"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
+<!--        <TextView-->
+<!--            android:id="@+id/txt_translation"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text=" 옮김"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="18sp" />-->
 
-    </LinearLayout>
+<!--    </LinearLayout>-->
 
     <TextView
         android:id="@+id/searchedPublisher"
@@ -134,7 +134,7 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@id/searchedPoster"
-        app:layout_constraintTop_toBottomOf="@id/translation" />
+        app:layout_constraintTop_toBottomOf="@id/author" />
 
     <TextView
         android:id="@+id/searchedISBN"
