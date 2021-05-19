@@ -44,8 +44,6 @@ public class SearchFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
         return inflater.inflate(R.layout.fragment_search, container, false);
     }
 
@@ -128,12 +126,12 @@ public class SearchFragment extends Fragment {
 
         mRecyclerView.setVisibility(View.VISIBLE);
 
+
     }
     private Callback<MovieResponse> retrofitCallback = new Callback<MovieResponse>() {
         @Override
         public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
             if (response.isSuccessful()) {
-                Log.d("ResponseSuccess", "Enter");
                 int total = response.body().getItems().length;
                 Items[] booksSearched = response.body().getItems();
                 for (int i=0; i<total; i++) {

@@ -1,5 +1,6 @@
 package com.example.bookingbook;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -19,6 +20,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.util.HashMap;
@@ -26,9 +35,11 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
+    private DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference();
     MaterialEditText userName, email, password, mobile;
     RadioGroup radioGroup;
     Button register;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +73,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, "Select gender Please", Toast.LENGTH_SHORT).show();
                     } else {
                         String selectGender = selected_Gender.getText().toString();
+                        HashMap result = new HashMap<>();
+                        result.put("name", txtUserName);
+                        result.put("email", txtEmail);
+                        result.put("password", txtPassword);
+                        result.put("mobile", txtMobile);
+                        result.put("gender", selectGender);
+
                         registerNewAccount(txtUserName, txtEmail, txtPassword, txtMobile, selectGender);
                     }
                 }
@@ -72,52 +90,37 @@ public class RegisterActivity extends AppCompatActivity {
     private void registerNewAccount(final String username, final String email, final String password,
                                     final String mobile, final String gender) {
 
-        final ProgressDialog progressDialog = new ProgressDialog(RegisterActivity.this);
-        progressDialog.setCancelable(false);
-        progressDialog.setIndeterminate(false);
-        progressDialog.setTitle("Registering New Account");
-        progressDialog.show();
+        final ProgressDialog mDialog = new ProgressDialog(RegisterActivity.this);
+        mDialog.setMessage("가입중입니다...");
+        mDialog.show();
+        User user = new User(username, email, password, mobile, gender);
 
-        String uRl = "http://웹서버주소/loginregister/register.php";
-        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
+        firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onResponse(String response)
-            {
-                if (response.equals("Successfully Registered")) {
-                    progressDialog.dismiss();
-                    Toast.makeText(RegisterActivity.this, response, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(RegisterActivity.this, Activity.class));
-                    finish();
-                } else {
-                    progressDialog.dismiss();
-                    Toast.makeText(RegisterActivity.this, response, Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+
+                if(task.isSuccessful()){
+                    mDialog.dismiss();
+                    userDatabase.child("users").child(username).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "Register Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error)
-            {
-                progressDialog.dismiss();
-                Toast.makeText(RegisterActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                HashMap<String, String> param = new HashMap<>();
-                param.put("username", username);
-                param.put("email", email);
-                param.put("psw", password);
-                param.put("mobile", mobile);
-                param.put("gender", gender);
+                else{
+                    Toast.makeText(getApplicationContext(), "오류!", Toast.LENGTH_SHORT).show();
+                }
 
-                return param;
             }
-        };
-
-        request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-        MySingleton.getmInstance(RegisterActivity.this).addToRequestQueue(request);
+        });
 
     }
 
