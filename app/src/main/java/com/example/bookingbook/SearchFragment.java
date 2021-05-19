@@ -56,8 +56,7 @@ public class SearchFragment extends Fragment {
         TextView CancelTxt = (TextView) view.findViewById(R.id.txt_cancel);
         LinearLayout searchTextInfo = (LinearLayout)view.findViewById(R.id.searchTexts);
         TextView searchName = (TextView)view.findViewById(R.id.searchName);
-        HorizontalScrollView recommends = (HorizontalScrollView)view.findViewById(R.id.searchRecs);
-        TextView tvRec = (TextView)view.findViewById(R.id.tvRec);
+        //TextView tvRec = (TextView)view.findViewById(R.id.tvRec);
         searchedItems = new ArrayList();
 
         // If enter pressed, do search
@@ -68,8 +67,8 @@ public class SearchFragment extends Fragment {
                     String searchString = searchText.getText().toString();
                     Log.d("search", searchString);
                     searchTextInfo.setVisibility(View.VISIBLE);
-                    recommends.setVisibility(View.VISIBLE);
-                    tvRec.setVisibility(View.VISIBLE);
+                    //recommends.setVisibility(View.VISIBLE);
+                    //tvRec.setVisibility(View.VISIBLE);
                     searchName.setText(searchString);
                     search(view, searchString);
                 }
@@ -84,8 +83,8 @@ public class SearchFragment extends Fragment {
                 String searchString = searchText.getText().toString();
                 Log.d("search", searchString);
                 searchTextInfo.setVisibility(View.VISIBLE);
-                recommends.setVisibility(View.VISIBLE);
-                tvRec.setVisibility(View.VISIBLE);
+                //recommends.setVisibility(View.VISIBLE);
+                //tvRec.setVisibility(View.VISIBLE);
                 searchName.setText(searchString);
                 //searchedItems.add(new ItemSearched(R.drawable.img_book_example, searchString, "2010", "리처드 도킨스", "홍영남", "을유문화사"));
                 search(view, searchString);
@@ -99,7 +98,10 @@ public class SearchFragment extends Fragment {
                 searchText.getText().clear();
                 searchTextInfo.setVisibility(View.INVISIBLE);
                 mRecyclerView.setVisibility(View.INVISIBLE);
-                recommends.setVisibility(View.INVISIBLE);
+                //recommends.setVisibility(View.INVISIBLE);
+
+                searchedItems.clear();
+                mAdapter.notifyDataSetChanged();
             }
         });
 

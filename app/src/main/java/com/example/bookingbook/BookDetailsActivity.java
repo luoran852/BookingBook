@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -28,9 +29,8 @@ public class BookDetailsActivity extends AppCompatActivity {
     BitmapDrawable drawable;
     Bitmap bitmap;
 
-
-    private FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
-    private DatabaseReference userReference = userDatabase.getReference();
+    private FirebaseDatabase userDatabase;
+    private DatabaseReference userReference;
 
     SharedPreferences sharedPreferences;
 
@@ -39,9 +39,20 @@ public class BookDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
+        FirebaseApp.initializeApp(getApplicationContext()); // firebase 초기화
+        userDatabase = FirebaseDatabase.getInstance();
+        userReference = userDatabase.getReference();
+
         img_book = findViewById(R.id.searched_detail_img);
         drawable = (BitmapDrawable) img_book.getDrawable();
         bitmap = drawable.getBitmap();
+
+        btn_rental = findViewById(R.id.btn_rental);
+        btn_return = findViewById(R.id.btn_return);
+        txt_title = findViewById(R.id.txt_book_title);
+        txt_author = findViewById(R.id.txt_author);
+        txt_publisher = findViewById(R.id.searchedPublisher);
+
 
         btn_rental.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,7 +61,8 @@ public class BookDetailsActivity extends AppCompatActivity {
                 title = txt_title.getText().toString();
                 author = txt_author.getText().toString();
                 publisher = txt_publisher.getText().toString();
-                ISBN = txt_ISBN.getText().toString();
+                ISBN = "11111";
+                //ISBN = txt_ISBN.getText().toString();
 
                 Book book = new Book(title, author, publisher, ISBN, imageUrl);
 
