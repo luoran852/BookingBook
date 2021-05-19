@@ -1,6 +1,7 @@
 package com.example.bookingbook;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -11,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class NovelActivity extends AppCompatActivity {
+import static android.content.ContentValues.TAG;
+
+public class NovelActivity extends AppCompatActivity implements RecyclerViewAdapter.OnBookClickListener {
 
     private RecyclerView recyclerView_classic_novel, recyclerView_poetry,
             recyclerView_genre_novel, recyclerView_essay;
@@ -34,7 +37,7 @@ public class NovelActivity extends AppCompatActivity {
 
         //recyclerview 고전 소설
         recyclerView_classic_novel = (RecyclerView) findViewById(R.id.rv_classic_novel);
-        adapter = new RecyclerViewAdapter(this, books);
+        adapter = new RecyclerViewAdapter(this, books, this);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_classic_novel.setHasFixedSize(true);
@@ -43,7 +46,7 @@ public class NovelActivity extends AppCompatActivity {
 
         //recyclerview 시집
         recyclerView_poetry = (RecyclerView)findViewById(R.id.rv_poetry);
-        adapter = new RecyclerViewAdapter(this, books);
+        adapter = new RecyclerViewAdapter(this, books, this);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_poetry.setHasFixedSize(true);
@@ -52,7 +55,7 @@ public class NovelActivity extends AppCompatActivity {
 
         //recyclerview 장르 소설
         recyclerView_genre_novel = (RecyclerView)findViewById(R.id.rv_genre_novel);
-        adapter = new RecyclerViewAdapter(this, books);
+        adapter = new RecyclerViewAdapter(this, books, this);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_genre_novel.setHasFixedSize(true);
@@ -61,7 +64,7 @@ public class NovelActivity extends AppCompatActivity {
 
         //recyclerview 에세이
         recyclerView_essay = (RecyclerView)findViewById(R.id.rv_essay);
-        adapter = new RecyclerViewAdapter(this, books);
+        adapter = new RecyclerViewAdapter(this, books, this);
 
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView_essay.setHasFixedSize(true);
@@ -78,4 +81,8 @@ public class NovelActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBookClick(int position) {
+        Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+    }
 }

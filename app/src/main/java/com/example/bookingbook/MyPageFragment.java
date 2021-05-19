@@ -2,6 +2,7 @@ package com.example.bookingbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class MyPageFragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBookClickListener {
 
     private RecyclerView recyclerView_keep, recyclerView_record;
     private RecyclerViewAdapter adapter;
@@ -44,7 +47,7 @@ public class MyPageFragment extends Fragment {
 
         //recyclerview 대출 목록
         recyclerView_keep = (RecyclerView)view.findViewById(R.id.mypage_rvRanking_keep);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_keep.setHasFixedSize(true);
@@ -53,7 +56,7 @@ public class MyPageFragment extends Fragment {
 
         //recyclerview 찜 목록
         recyclerView_record = (RecyclerView)view.findViewById(R.id.mypage_rvRanking_record);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_record.setHasFixedSize(true);
@@ -73,4 +76,12 @@ public class MyPageFragment extends Fragment {
 
     }
 
+    @Override
+    public void onBookClick(int position) {
+        Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+
+        // 세부 액티비티로 이동
+        Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        startActivity(intent);
+    }
 }

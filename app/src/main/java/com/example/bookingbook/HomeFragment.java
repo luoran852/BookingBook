@@ -2,9 +2,11 @@ package com.example.bookingbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,7 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBookClickListener {
 
     private RecyclerView recyclerView_classic_novel, recyclerView_poetry, recyclerView_essay,
             recyclerView_history, recyclerView_philo;
@@ -57,7 +61,7 @@ public class HomeFragment extends Fragment {
 
         //recyclerview 고전소설
         recyclerView_classic_novel = (RecyclerView)view.findViewById(R.id.rv_home_classic_nov);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_classic_novel.setHasFixedSize(true);
@@ -66,7 +70,7 @@ public class HomeFragment extends Fragment {
 
         //recyclerview 에세이
         recyclerView_essay = (RecyclerView)view.findViewById(R.id.rv_home_essay);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_essay.setHasFixedSize(true);
@@ -75,7 +79,7 @@ public class HomeFragment extends Fragment {
 
         //recyclerview 시집
         recyclerView_poetry = (RecyclerView)view.findViewById(R.id.rv_home_poetry);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_poetry.setHasFixedSize(true);
@@ -84,7 +88,7 @@ public class HomeFragment extends Fragment {
 
         //recyclerview 역사
         recyclerView_history = (RecyclerView)view.findViewById(R.id.rv_home_history);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_history.setHasFixedSize(true);
@@ -93,7 +97,7 @@ public class HomeFragment extends Fragment {
 
         //recyclerview 철학
         recyclerView_philo = (RecyclerView)view.findViewById(R.id.rv_home_philo);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_philo.setHasFixedSize(true);
@@ -110,16 +114,18 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        //recyclerView item clicked
-        adapter.setOnItemClickListener(new RecyclerViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int pos) {
-                // 상세 액티비티로 이동
-                Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-                startActivity(intent);
-            }
-        });
-
     }
+
+    //recyclerView item clicked
+    @Override
+    public void onBookClick(int position) {
+        Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+
+        // 세부 액티비티로 이동
+        Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        startActivity(intent);
+    }
+
+
 
 }

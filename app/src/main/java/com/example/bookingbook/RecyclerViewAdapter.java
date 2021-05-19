@@ -15,38 +15,29 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<ItemBook> list;
+    ArrayList<ItemBook> books;
+    private OnBookClickListener mOnBookClickListener;
 
-    RecyclerViewAdapter(Context context, ArrayList<ItemBook> list) {
+
+    RecyclerViewAdapter(Context context, ArrayList<ItemBook> books, OnBookClickListener onBookClickListener) {
         super();
-        Log.d("list", list.toString());
+        Log.d("books", books.toString());
         this.context = context;
-        this.list = list;
+        this.books = books;
+        this.mOnBookClickListener = onBookClickListener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View v, int pos);
-    }
-
-    // 리스너 객체 참조를 저장하는 변수
-    private OnItemClickListener mListener = null;
-
-    // OnItemClickListener 객체 참조를 어댑터에 전달하는 메서드
-    public void setOnItemClickListener(OnItemClickListener listener)
-    {
-        this.mListener = listener;
-    }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.img_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyViewHolder(view, mOnBookClickListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.poster.setImageResource(list.get(position).image);
+        holder.poster.setImageResource(books.get(position).image);
     }
 
     @Override
@@ -54,25 +45,26 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return 10;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView poster;
+        OnBookClickListener onBookClickListener;
 
-        public MyViewHolder(View itemView) {
+        public MyViewHolder(View itemView, OnBookClickListener onBookClickListener) {
             super(itemView);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int pos = getAdapterPosition();
-                    // 리스너 객체의 메서드 호출
-                    if (pos != RecyclerView.NO_POSITION)
-                    {
-                        mListener.onItemClick(v, pos);
-                    }
-                }
-            });
             poster = itemView.findViewById(R.id.book);
+            this.onBookClickListener = onBookClickListener;
+
+            itemView.setOnClickListener(this);
         }
 
+        @Override
+        public void onClick(View v) {
+            onBookClickListener.onBookClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnBookClickListener {
+        void onBookClick(int position);
     }
 
 }

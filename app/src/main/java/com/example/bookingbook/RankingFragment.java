@@ -2,6 +2,7 @@ package com.example.bookingbook;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RankingFragment extends Fragment {
+import static android.content.ContentValues.TAG;
+
+public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnBookClickListener {
 
     private RecyclerView recyclerView_ranking_all, recyclerView_ranking_novel, recyclerView_ranking_essay,
             recyclerView_ranking_bio, recyclerView_ranking_philo;
@@ -40,7 +43,7 @@ public class RankingFragment extends Fragment {
 
         //recyclerview 전체 랭킹 순위
         recyclerView_ranking_all = (RecyclerView)view.findViewById(R.id.rv_ranking);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_ranking_all.setHasFixedSize(true);
@@ -49,7 +52,7 @@ public class RankingFragment extends Fragment {
 
         //recyclerview 소설장르 인기순위
         recyclerView_ranking_novel = (RecyclerView)view.findViewById(R.id.rv_ranking_novel);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_ranking_novel.setHasFixedSize(true);
@@ -58,7 +61,7 @@ public class RankingFragment extends Fragment {
 
         //recyclerview 에세이장르 인기순위
         recyclerView_ranking_essay = (RecyclerView)view.findViewById(R.id.rv_ranking_essay);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_ranking_essay.setHasFixedSize(true);
@@ -67,7 +70,7 @@ public class RankingFragment extends Fragment {
 
         //recyclerview 전기장르 인기순위
         recyclerView_ranking_bio = (RecyclerView)view.findViewById(R.id.rv_ranking_bio);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_ranking_bio.setHasFixedSize(true);
@@ -76,12 +79,21 @@ public class RankingFragment extends Fragment {
 
         //recyclerview 철학장르
         recyclerView_ranking_philo = (RecyclerView)view.findViewById(R.id.rv_ranking_philo);
-        adapter = new RecyclerViewAdapter(getContext(), books);
+        adapter = new RecyclerViewAdapter(getContext(), books, this);
 
         linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView_ranking_philo.setHasFixedSize(true);
         recyclerView_ranking_philo.setLayoutManager(linearLayoutManager);
         recyclerView_ranking_philo.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onBookClick(int position) {
+        Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+
+        // 세부 액티비티로 이동
+        Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        startActivity(intent);
     }
 }
