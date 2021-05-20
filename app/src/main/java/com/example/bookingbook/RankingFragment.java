@@ -24,7 +24,7 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
             recyclerView_ranking_bio, recyclerView_ranking_philo;
     private RecyclerViewAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
+    private ArrayList<Items> books = new ArrayList<Items>();
 
     @Nullable
     @Override
@@ -36,10 +36,10 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        for(int i=0; i<5; i++) {
-            books.add(new ItemBook(R.drawable.img_book_example));
-            books.add(new ItemBook(R.drawable.img_book_example2));
-        }
+//        for(int i=0; i<5; i++) {
+//            books.add(new ItemBook(R.drawable.img_book_example));
+//            books.add(new ItemBook(R.drawable.img_book_example2));
+//        }
 
         //recyclerview 전체 랭킹 순위
         recyclerView_ranking_all = (RecyclerView)view.findViewById(R.id.rv_ranking);
@@ -88,12 +88,14 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
 
     }
 
+
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
         startActivity(intent);
     }
 }

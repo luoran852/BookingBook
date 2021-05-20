@@ -6,20 +6,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
     Context context;
-    ArrayList<ItemBook> books;
+    ArrayList<Items> books;
     private OnBookClickListener mOnBookClickListener;
 
 
-    RecyclerViewAdapter(Context context, ArrayList<ItemBook> books, OnBookClickListener onBookClickListener) {
+    RecyclerViewAdapter(Context context, ArrayList<Items> books, OnBookClickListener onBookClickListener) {
         super();
         Log.d("books", books.toString());
         this.context = context;
@@ -37,7 +40,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.poster.setImageResource(books.get(position).image);
+
+//        Glide.with(holder.itemView.getContext())
+//                .load(books.get(position).getImage())
+//                .into(holder.poster);
+
+        Glide.with(holder.itemView.getContext())
+                .load("https://m.media-amazon.com/images/M/MV5BMTA1ODUzMDA3NzFeQTJeQWpwZ15BbWU3MDgxMTYxNTk@._V1_.jpg")
+                .into(holder.poster);
+
     }
 
     @Override
@@ -59,12 +70,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View v) {
-            onBookClickListener.onBookClick(getAdapterPosition());
+            onBookClickListener.onBookClick(getAdapterPosition(), books);
         }
     }
 
     public interface OnBookClickListener {
-        void onBookClick(int position);
+        void onBookClick(int position, ArrayList<Items> books);
     }
 
 }

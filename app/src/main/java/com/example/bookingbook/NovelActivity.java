@@ -1,5 +1,6 @@
 package com.example.bookingbook;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,7 +21,7 @@ public class NovelActivity extends AppCompatActivity implements RecyclerViewAdap
             recyclerView_genre_novel, recyclerView_essay;
     private RecyclerViewAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
+    private ArrayList<Items> books = new ArrayList<Items>();
     private ImageView backBtn;
 
     @Override
@@ -30,10 +31,10 @@ public class NovelActivity extends AppCompatActivity implements RecyclerViewAdap
 
         backBtn = findViewById(R.id.btn_back);
 
-        for(int i=0; i<5; i++) {
-            books.add(new ItemBook(R.drawable.img_book_example));
-            books.add(new ItemBook(R.drawable.img_book_example2));
-        }
+//        for(int i=0; i<5; i++) {
+//            books.add(new ItemBook(R.drawable.img_book_example));
+//            books.add(new ItemBook(R.drawable.img_book_example2));
+//        }
 
         //recyclerview 고전 소설
         recyclerView_classic_novel = (RecyclerView) findViewById(R.id.rv_classic_novel);
@@ -81,8 +82,14 @@ public class NovelActivity extends AppCompatActivity implements RecyclerViewAdap
 
     }
 
+
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
+
+        // 세부 액티비티로 이동
+        Intent intent = new Intent(this, BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
+        startActivity(intent);
     }
 }

@@ -21,14 +21,20 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class BookDetailsActivity extends AppCompatActivity {
 
     ImageView img_book;
-    Button btn_rental, btn_return;
-    TextView txt_title, txt_author, txt_translator, txt_publisher, txt_summary, txt_ISBN;
+    Button btn_rental, btn_return, btn_keep;
+    TextView txt_title, txt_year, txt_author, txt_publisher, txt_summary, txt_ISBN;
     String title, author, publisher, ISBN, imageUrl;
     BitmapDrawable drawable;
     Bitmap bitmap;
+    Integer position;
+
+    Intent passedIntent = getIntent();
+    ArrayList<Items> list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
 
     private FirebaseDatabase userDatabase;
     private DatabaseReference userReference;
@@ -48,13 +54,29 @@ public class BookDetailsActivity extends AppCompatActivity {
         drawable = (BitmapDrawable) img_book.getDrawable();
         bitmap = drawable.getBitmap();
 
+        btn_keep = findViewById(R.id.btn_keep);
         btn_rental = findViewById(R.id.btn_rental);
         btn_return = findViewById(R.id.btn_return);
         txt_title = findViewById(R.id.txt_book_title);
-        txt_author = findViewById(R.id.txt_author);
+        txt_year = findViewById(R.id.searchedYear);
+        txt_author = findViewById(R.id.searchedAuthor);
         txt_publisher = findViewById(R.id.searchedPublisher);
+        txt_ISBN = findViewById(R.id.isbn);
+        txt_summary = findViewById(R.id.txt_storyline);
 
 
+        position = passedIntent.getIntExtra("position", 0);
+
+        // 아이템 정보 연결
+        txt_title.setText(list.get(position).title);
+        txt_year.setText(list.get(position).pubdate);
+        txt_author.setText(list.get(position).author);
+        txt_publisher.setText(list.get(position).publisher);
+        txt_ISBN.setText(list.get(position).isbn);
+        txt_summary.setText(list.get(position).description);
+
+
+        // 대출버튼 클릭
         btn_rental.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -84,6 +106,7 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
+        // 반납버튼 클릭
         btn_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -110,6 +133,13 @@ public class BookDetailsActivity extends AppCompatActivity {
             }
         });
 
+        // 찜버튼 클릭
+        btn_keep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 

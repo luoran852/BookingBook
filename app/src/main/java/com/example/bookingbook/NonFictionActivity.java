@@ -20,7 +20,7 @@ public class NonFictionActivity extends AppCompatActivity implements RecyclerVie
     private RecyclerView recyclerView_history, recyclerView_philo, recyclerView_bio, recyclerView_sci;
     private RecyclerViewAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
+    private ArrayList<Items> books = new ArrayList<Items>();
     private ImageView backBtn;
 
     @Override
@@ -30,10 +30,10 @@ public class NonFictionActivity extends AppCompatActivity implements RecyclerVie
 
         backBtn = findViewById(R.id.btn_back);
 
-        for(int i=0; i<5; i++) {
-            books.add(new ItemBook(R.drawable.img_book_example));
-            books.add(new ItemBook(R.drawable.img_book_example2));
-        }
+//        for(int i=0; i<5; i++) {
+//            books.add(new ItemBook(R.drawable.img_book_example));
+//            books.add(new ItemBook(R.drawable.img_book_example2));
+//        }
 
         //recyclerview 역사
         recyclerView_history = (RecyclerView) findViewById(R.id.rv_history);
@@ -81,12 +81,14 @@ public class NonFictionActivity extends AppCompatActivity implements RecyclerVie
 
     }
 
+
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(this, BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
         startActivity(intent);
     }
 }

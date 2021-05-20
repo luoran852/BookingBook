@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
             recyclerView_history, recyclerView_philo;
     private RecyclerViewAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
+    private ArrayList<Items> books = new ArrayList<Items>();
     private ConstraintLayout section;
 
     private TextView txt_classic_novel;
@@ -55,10 +55,11 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
             }
         });
 
-        for(int i=0; i<5; i++) {
-            books.add(new ItemBook(R.drawable.img_book_example));
-            books.add(new ItemBook(R.drawable.img_book_example2));
-        }
+//        for(int i=0; i<5; i++) {
+//            books.add(new ItemBook(R.drawable.img_book_example));
+//            books.add(new ItemBook(R.drawable.img_book_example2));
+//        }
+
 
         //recyclerview 고전소설
         recyclerView_classic_novel = (RecyclerView)view.findViewById(R.id.rv_home_classic_nov);
@@ -117,16 +118,15 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
 
     }
 
-    //recyclerView item clicked
+    // 리싸이클러뷰 아이템 클릭
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
+        intent.putExtra("position", position);
         startActivity(intent);
     }
-
-
-
 }

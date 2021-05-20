@@ -1,25 +1,25 @@
 package com.example.bookingbook;
 
 public class Items {
-    private String image;
+    String image;
 
-    private String author;
+    String author;
 
-    private String price;
+    String price;
 
-    private String isbn;
+    String isbn;
 
-    private String link;
+    String link;
 
-    private String discount;
+    String discount;
 
-    private String publisher;
+    String publisher;
 
-    private String description;
+    String description;
 
-    private String title;
+    String title;
 
-    private String pubdate;
+    String pubdate;
 
     public String getImage ()
     {

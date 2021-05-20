@@ -27,7 +27,7 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
     private RecyclerView recyclerView_keep, recyclerView_record;
     private RecyclerViewAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-    private ArrayList<ItemBook> books = new ArrayList<ItemBook>();
+    private ArrayList<Items> books = new ArrayList<Items>();
     private Button btn_login; // 로그인 버튼
 
     @Nullable
@@ -40,10 +40,10 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        for(int i=0; i<5; i++) {
-            books.add(new ItemBook(R.drawable.img_book_example));
-            books.add(new ItemBook(R.drawable.img_book_example2));
-        }
+//        for(int i=0; i<5; i++) {
+//            books.add(new ItemBook(R.drawable.img_book_example));
+//            books.add(new ItemBook(R.drawable.img_book_example2));
+//        }
 
         //recyclerview 대출 목록
         recyclerView_keep = (RecyclerView)view.findViewById(R.id.mypage_rvRanking_keep);
@@ -76,12 +76,14 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
 
     }
 
+
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
         startActivity(intent);
     }
 }
