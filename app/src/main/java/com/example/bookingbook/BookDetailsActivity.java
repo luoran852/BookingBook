@@ -36,9 +36,6 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
     Bitmap bitmap;
     int position;
 
-    Intent passedIntent = getIntent();
-    ArrayList<Items> list = new ArrayList<>();
-
     private FirebaseDatabase userDatabase;
     private DatabaseReference userReference;
 
@@ -49,7 +46,8 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
-        list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
+        Intent passedIntent = getIntent();
+        ArrayList<Items> list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
         passedIntent.removeExtra("bookList");
 
         FirebaseApp.initializeApp(getApplicationContext()); // firebase 초기화

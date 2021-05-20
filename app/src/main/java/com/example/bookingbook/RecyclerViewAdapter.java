@@ -63,12 +63,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View v) {
-            onBookClickListener.onBookClick(getAdapterPosition());
+            onBookClickListener.onBookClick(getAdapterPosition(), books);
         }
     }
 
     public interface OnBookClickListener {
-        void onBookClick(int position);
+        void onBookClick(int position, ArrayList<Items> books);
     }
 
 }

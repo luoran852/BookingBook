@@ -99,8 +99,4 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
         startActivity(intent);
     }
 
-    @Override
-    public void onBookClick(int position) {
-
-    }
 }

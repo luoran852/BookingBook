@@ -86,8 +86,4 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
         startActivity(intent);
     }
 
-    @Override
-    public void onBookClick(int position) {
-
-    }
 }

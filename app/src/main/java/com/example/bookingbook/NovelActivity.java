@@ -93,8 +93,4 @@ public class NovelActivity extends AppCompatActivity implements RecyclerViewAdap
         startActivity(intent);
     }
 
-    @Override
-    public void onBookClick(int position) {
-
-    }
 }

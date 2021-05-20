@@ -173,11 +173,6 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
         }
     };
 
-    @Override
-    public void onBookClick(int position) {
-
-    }
-
     // 리싸이클러뷰 아이템 클릭
 
     public void onBookClick(int position, ArrayList<Items> book) {
@@ -185,7 +180,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-        intent.putExtra("bookList", book);
+        intent.putExtra("bookList", (Serializable)book);
         intent.putExtra("position", position);
         startActivity(intent);
     }

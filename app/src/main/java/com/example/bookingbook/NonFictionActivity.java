@@ -92,8 +92,4 @@ public class NonFictionActivity extends AppCompatActivity implements RecyclerVie
         startActivity(intent);
     }
 
-    @Override
-    public void onBookClick(int position) {
-
-    }
 }
