@@ -37,6 +37,7 @@ public class SearchFragment extends Fragment implements RvAdapter.OnBookClickLis
     RecyclerView.LayoutManager mLayoutManager;
     RvAdapter mAdapter;
     ArrayList searchedItems;
+    private ArrayList<Items> books = new ArrayList<Items>();
 
     private String CLIENT_ID = "3_FP0gfD3YHrOdUGUrm0";
     private String CLIENT_SECRET = "eIZ969Ubz1";
@@ -167,6 +168,8 @@ public class SearchFragment extends Fragment implements RvAdapter.OnBookClickLis
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
+        intent.putExtra("bookList", books);
+        intent.putExtra("position", position);
         startActivity(intent);
     }
 }

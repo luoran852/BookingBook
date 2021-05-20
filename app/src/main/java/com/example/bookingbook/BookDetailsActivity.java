@@ -31,7 +31,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     String title, author, publisher, ISBN, imageUrl;
     BitmapDrawable drawable;
     Bitmap bitmap;
-    Integer position;
+    int position;
 
     Intent passedIntent = getIntent();
     ArrayList<Items> list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");

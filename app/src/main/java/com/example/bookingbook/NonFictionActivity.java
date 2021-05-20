@@ -89,6 +89,7 @@ public class NonFictionActivity extends AppCompatActivity implements RecyclerVie
         // 세부 액티비티로 이동
         Intent intent = new Intent(this, BookDetailsActivity.class);
         intent.putExtra("bookList", books);
+        intent.putExtra("position", position);
         startActivity(intent);
     }
 }
