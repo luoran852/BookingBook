@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,15 +16,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class BookDetailsActivity extends AppCompatActivity {
+public class BookDetailsActivity extends AppCompatActivity implements Serializable {
 
     ImageView img_book;
     Button btn_rental, btn_return, btn_keep;
@@ -34,7 +37,7 @@ public class BookDetailsActivity extends AppCompatActivity {
     int position;
 
     Intent passedIntent = getIntent();
-    ArrayList<Items> list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
+    ArrayList<Items> list = new ArrayList<>();
 
     private FirebaseDatabase userDatabase;
     private DatabaseReference userReference;
@@ -45,6 +48,9 @@ public class BookDetailsActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
+
+        list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
+        passedIntent.removeExtra("bookList");
 
         FirebaseApp.initializeApp(getApplicationContext()); // firebase 초기화
         userDatabase = FirebaseDatabase.getInstance();
@@ -66,13 +72,17 @@ public class BookDetailsActivity extends AppCompatActivity {
 
 
         position = passedIntent.getIntExtra("position", 0);
+        passedIntent.removeExtra("position");
 
         // 아이템 정보 연결
+        Glide.with(this)
+                .load(list.get(0))
+                .into(img_book);
         txt_title.setText(list.get(position).title);
         txt_year.setText(list.get(position).pubdate);
         txt_author.setText(list.get(position).author);
         txt_publisher.setText(list.get(position).publisher);
-        txt_ISBN.setText(list.get(position).isbn);
+        //txt_ISBN.setText(list.get(position).isbn);
         txt_summary.setText(list.get(position).description);
 
 

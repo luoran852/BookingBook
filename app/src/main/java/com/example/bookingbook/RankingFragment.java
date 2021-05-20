@@ -89,7 +89,6 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
     }
 
 
-    @Override
     public void onBookClick(int position, ArrayList<Items> books) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
@@ -98,5 +97,10 @@ public class RankingFragment extends Fragment implements RecyclerViewAdapter.OnB
         intent.putExtra("bookList", books);
         intent.putExtra("position", position);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBookClick(int position) {
+
     }
 }

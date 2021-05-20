@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -40,20 +39,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
-
-//        Glide.with(holder.itemView.getContext())
-//                .load(books.get(position).getImage())
-//                .into(holder.poster);
-
-        Glide.with(holder.itemView.getContext())
-                .load("https://m.media-amazon.com/images/M/MV5BMTA1ODUzMDA3NzFeQTJeQWpwZ15BbWU3MDgxMTYxNTk@._V1_.jpg")
+                Glide.with(holder.itemView.getContext())
+                .load(books.get(position).getImage())
                 .into(holder.poster);
-
     }
 
     @Override
     public int getItemCount() {
-        return 10;
+        return books.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -70,12 +63,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         @Override
         public void onClick(View v) {
-            onBookClickListener.onBookClick(getAdapterPosition(), books);
+            onBookClickListener.onBookClick(getAdapterPosition());
         }
     }
 
     public interface OnBookClickListener {
-        void onBookClick(int position, ArrayList<Items> books);
+        void onBookClick(int position);
     }
 
 }
