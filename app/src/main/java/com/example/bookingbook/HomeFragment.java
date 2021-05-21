@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment implements RecyclerViewAdapter.OnBook
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-        intent.putExtra("bookList", (Serializable)book);
+        intent.putExtra("bookList", (Serializable)book.get(position));
         intent.putExtra("position", position);
         startActivity(intent);
     }

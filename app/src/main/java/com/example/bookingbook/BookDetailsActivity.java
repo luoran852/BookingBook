@@ -46,8 +46,9 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_details);
 
+        // 각 책의 데이터
         Intent passedIntent = getIntent();
-        ArrayList<Items> list = (ArrayList<Items>) passedIntent.getSerializableExtra("bookList");
+        Items list = (Items) passedIntent.getSerializableExtra("bookList");
         passedIntent.removeExtra("bookList");
 
         FirebaseApp.initializeApp(getApplicationContext()); // firebase 초기화
@@ -61,10 +62,11 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
         btn_keep = findViewById(R.id.btn_keep);
         btn_rental = findViewById(R.id.btn_rental);
         btn_return = findViewById(R.id.btn_return);
+
         txt_title = findViewById(R.id.txt_book_title);
-        txt_year = findViewById(R.id.searchedYear);
-        txt_author = findViewById(R.id.searchedAuthor);
-        txt_publisher = findViewById(R.id.searchedPublisher);
+        txt_year = findViewById(R.id.txt_year_detail);
+        txt_author = findViewById(R.id.txt_author_detail);
+        txt_publisher = findViewById(R.id.txt_publisher_detail);
         txt_ISBN = findViewById(R.id.isbn);
         txt_summary = findViewById(R.id.txt_storyline);
 
@@ -74,14 +76,15 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
 
         // 아이템 정보 연결
         Glide.with(this)
-                .load(list.get(0))
+                .load(list.getImage())
                 .into(img_book);
-        txt_title.setText(list.get(position).title);
-        txt_year.setText(list.get(position).pubdate);
-        txt_author.setText(list.get(position).author);
-        txt_publisher.setText(list.get(position).publisher);
+
+        txt_title.setText(list.getTitle());
+        txt_year.setText(list.getPubdate());
+        txt_author.setText(list.getAuthor());
+        txt_publisher.setText(list.getPublisher());
         //txt_ISBN.setText(list.get(position).isbn);
-        txt_summary.setText(list.get(position).description);
+        txt_summary.setText(list.getDescription());
 
 
         // 대출버튼 클릭
@@ -92,7 +95,7 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
                 title = txt_title.getText().toString();
                 author = txt_author.getText().toString();
                 publisher = txt_publisher.getText().toString();
-                ISBN = "11111";
+                Log.d("Book Info", list.getImage() + list.getIsbn());
                 //ISBN = txt_ISBN.getText().toString();
 
                 Book book = new Book(title, author, publisher, ISBN, imageUrl);

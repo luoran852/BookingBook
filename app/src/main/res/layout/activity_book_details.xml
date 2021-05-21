@@ -49,7 +49,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_year"
+            android:id="@+id/txt_year_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="3dp"
@@ -82,7 +82,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/searchedAuthor"
+            android:id="@+id/txt_author_detail"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:text="리처드 도킨스"
@@ -113,7 +113,7 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/searchedPublisher"
+            android:id="@+id/txt_publisher_detail"
             android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:text="홍영남"

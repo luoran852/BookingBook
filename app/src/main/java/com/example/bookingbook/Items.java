@@ -1,6 +1,8 @@
 package com.example.bookingbook;
 
-public class Items {
+import java.io.Serializable;
+
+public class Items implements Serializable {
     String image;
 
     String author;

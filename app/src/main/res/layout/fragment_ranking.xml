@@ -150,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
-                android:text="전기 장르 인기순위"
+                android:text="인문 장르 인기순위"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
