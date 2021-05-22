@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -30,8 +32,8 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
 
     ImageView img_book;
     Button btn_rental, btn_return, btn_keep;
-    TextView txt_title, txt_year, txt_author, txt_publisher, txt_summary, txt_ISBN;
-    String title, author, publisher, ISBN, imageUrl;
+    TextView txt_title, txt_year, txt_author, txt_publisher, txt_summary, txt_isbn;
+    String image, author, price, isbn, link, discount, publisher, description, title, pubdate;
     BitmapDrawable drawable;
     Bitmap bitmap;
     int position;
@@ -67,7 +69,7 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
         txt_year = findViewById(R.id.txt_year_detail);
         txt_author = findViewById(R.id.txt_author_detail);
         txt_publisher = findViewById(R.id.txt_publisher_detail);
-        txt_ISBN = findViewById(R.id.isbn);
+        txt_isbn = findViewById(R.id.isbn);
         txt_summary = findViewById(R.id.txt_storyline);
 
 
@@ -83,7 +85,7 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
         txt_year.setText(list.getPubdate());
         txt_author.setText(list.getAuthor());
         txt_publisher.setText(list.getPublisher());
-        //txt_ISBN.setText(list.get(position).isbn);
+        txt_isbn.setText(list.getIsbn());
         txt_summary.setText(list.getDescription());
 
 
@@ -92,17 +94,25 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
             @Override
             public void onClick(View v)
             {
+                /*Log.d("Book Info", list.getImage() + list.getIsbn());*/
+                //ISBN = txt_ISBN.getText().toString();
+                image = list.getImage();
                 title = txt_title.getText().toString();
+                pubdate = txt_year.getText().toString();
                 author = txt_author.getText().toString();
                 publisher = txt_publisher.getText().toString();
-                Log.d("Book Info", list.getImage() + list.getIsbn());
-                //ISBN = txt_ISBN.getText().toString();
+                isbn = txt_isbn.getText().toString();
+                description = txt_summary.getText().toString();
 
-                Book book = new Book(title, author, publisher, ISBN, imageUrl);
+                price = list.getPrice();
+                link = list.getLink();
+                discount = list.getDiscount();
 
-                sharedPreferences= getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-                String name = sharedPreferences.getString("login","");
-                userReference.child("users").child(ISBN).child(title).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
+                Book book = new Book(image, author, price, isbn, link, discount, publisher, description, title, pubdate);
+
+                sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+                String name = sharedPreferences.getString("login","noname");
+                userReference.child("users").child(name).child("rental").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Successfully rented.", Toast.LENGTH_SHORT).show();
@@ -122,15 +132,12 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
             @Override
             public void onClick(View v)
             {
-                title = txt_title.getText().toString();
-                author = txt_author.getText().toString();
-                publisher = txt_publisher.getText().toString();
-                ISBN = txt_ISBN.getText().toString();
+                isbn = txt_isbn.getText().toString();
 
                 sharedPreferences= getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
-                String name = sharedPreferences.getString("login","");
+                String name = sharedPreferences.getString("login","noname");
 
-                userDatabase.getReference().child("users").child(name).child(ISBN).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                userDatabase.getReference().child("users").child(name).child("rental").child(isbn).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(), "Successfully returned", Toast.LENGTH_SHORT).show();
@@ -149,9 +156,43 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
             @Override
             public void onClick(View v) {
 
+                image = list.getImage();
+                title = txt_title.getText().toString();
+                pubdate = txt_year.getText().toString();
+                author = txt_author.getText().toString();
+                publisher = txt_publisher.getText().toString();
+                isbn = txt_isbn.getText().toString();
+                description = txt_summary.getText().toString();
+
+                price = list.getPrice();
+                link = list.getLink();
+                discount = list.getDiscount();
+
+                Book book = new Book(image, author, price, isbn, link, discount, publisher, description, title, pubdate);
+                sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+                String name = sharedPreferences.getString("login","noname");
+                userReference.child("users").child(name).child("favorite").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), "Successfully kept.", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getApplicationContext(), "keep Failure", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
+    }
+
+    public static String BitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 70, baos);
+        byte[] bytes = baos.toByteArray();
+        String temp = Base64.encodeToString(bytes, Base64.DEFAULT);
+        return temp;
     }
 
 }

@@ -9,96 +9,96 @@
     android:background="@color/white"
     tools:context=".RegisterActivity">
 
-        <TextView
-            android:layout_width="match_parent"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Register New Account"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/black"
+        android:hint="User Name"
+        android:padding="5dp"
+        app:met_floatingLabel="normal" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/black"
+        android:hint="Email"
+        android:padding="5dp"
+        app:met_floatingLabel="normal" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/black"
+        android:hint="Password(more than 6 digits)"
+        android:padding="5dp"
+        app:met_floatingLabel="normal" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:textColor="@color/black"
+        android:hint="Mobile"
+        android:padding="5dp"
+        app:met_floatingLabel="normal" />
+
+    <RadioGroup
+        android:id="@+id/radiogp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/male"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="Register New Account"
-            android:textSize="20dp"
             android:textColor="@color/black"
-            android:textStyle="bold" />
+            android:buttonTint="@color/grey"
+            android:text="Male" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/username"
-            android:layout_width="match_parent"
+        <RadioButton
+            android:id="@+id/female"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
             android:textColor="@color/black"
-            android:hint="User Name"
-            android:padding="5dp"
-            app:met_floatingLabel="normal" />
+            android:buttonTint="@color/grey"
+            android:text="Female" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:textColor="@color/black"
-            android:hint="Email"
-            android:padding="5dp"
-            app:met_floatingLabel="normal" />
+    </RadioGroup>
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:textColor="@color/black"
-            android:hint="Password"
-            android:padding="5dp"
-            app:met_floatingLabel="normal" />
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:textColor="@color/black"
-            android:hint="Mobile"
-            android:padding="5dp"
-            app:met_floatingLabel="normal" />
-
-        <RadioGroup
-            android:id="@+id/radiogp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <RadioButton
-                android:id="@+id/male"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:buttonTint="@color/grey"
-                android:text="Male" />
-
-            <RadioButton
-                android:id="@+id/female"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:buttonTint="@color/grey"
-                android:text="Female" />
-
-        </RadioGroup>
-
-        <Button
-            android:id="@+id/register"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="Register"
-            android:layout_gravity="center_horizontal"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white" />
+    <Button
+        android:id="@+id/register"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Register"
+        android:layout_gravity="center_horizontal"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white" />
 
 </LinearLayout>

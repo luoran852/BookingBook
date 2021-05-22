@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -35,11 +36,12 @@ import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private DatabaseReference userDatabase = FirebaseDatabase.getInstance().getReference();
     MaterialEditText userName, email, password, mobile;
     RadioGroup radioGroup;
     Button register;
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
+    private DatabaseReference userReference = userDatabase.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 String txtUserName = userName.getText().toString();
+                Log.d("userName1", txtUserName);
                 String txtEmail = email.getText().toString();
                 String txtPassword = password.getText().toString();
                 String txtMobile = mobile.getText().toString();
@@ -79,7 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                         result.put("password", txtPassword);
                         result.put("mobile", txtMobile);
                         result.put("gender", selectGender);
-
+                        Log.d("userName2", txtUserName);
                         registerNewAccount(txtUserName, txtEmail, txtPassword, txtMobile, selectGender);
                     }
                 }
@@ -101,9 +104,11 @@ public class RegisterActivity extends AppCompatActivity {
 
                 if(task.isSuccessful()){
                     mDialog.dismiss();
-                    userDatabase.child("users").child(username).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    Log.d("userName3", username);
+                    userReference.child("users").child(username).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
+                            Log.d("userName4", username);
                             Toast.makeText(getApplicationContext(), "Successfully Registered", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                             finish();

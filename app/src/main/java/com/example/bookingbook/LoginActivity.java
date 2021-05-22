@@ -75,11 +75,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        String loginStatus = sharedPreferences.getString(getResources().getString(R.string.prefLoginState), "");
-//        if (loginStatus.equals("loggedin")) {
-//            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//        }
-
     }
 
     private void login(final String name, final String email, final String password) {
@@ -102,58 +97,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-//        final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
-//        progressDialog.setCancelable(false);
-//        progressDialog.setIndeterminate(false);
-//        progressDialog.setTitle("Registering New Account");
-//        progressDialog.show();
-//
-//        String uRl = "http://웹서버주소/loginregister/login.php";
-//        StringRequest request = new StringRequest(Request.Method.POST, uRl, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response)
-//            {
-//                if (response.equals("Login Success")) {
-//                    progressDialog.dismiss();
-//                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-//                    SharedPreferences.Editor editor = sharedPreferences.edit();
-//                    if (loginState.isChecked()) {
-//                        editor.putString(getResources().getString(R.string.prefLoginState), "loggedin");
-//                    }
-//                    else {
-//                        editor.putString(getResources().getString(R.string.prefLoginState), "loggedout");
-//                    }
-//                    editor.apply();
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-//                }
-//
-//                else {
-//                    progressDialog.dismiss();
-//                    Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error)
-//            {
-//                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        }){
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError
-//            {
-//                HashMap<String, String> param = new HashMap<>();
-//                param.put("email", email);
-//                param.put("psw", password);
-//
-//                return param;
-//            }
-//        };
-//
-//        request.setRetryPolicy(new DefaultRetryPolicy(30000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-//                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//        MySingleton.getmInstance(LoginActivity.this).addToRequestQueue(request);
 
     }
 

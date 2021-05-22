@@ -128,106 +128,106 @@
             android:layout_marginLeft="15dp"
             tools:listitem="@layout/item_search"/>
 
-<!--        <TextView-->
-<!--            android:id="@+id/tvRec"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/rvSearched"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            android:visibility="invisible"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="20dp"-->
-<!--            android:text="추천 작품들"-->
-<!--            android:textSize="20sp"-->
-<!--            android:textColor="@color/black"/>-->
+        <!--        <TextView-->
+        <!--            android:id="@+id/tvRec"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/rvSearched"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            android:visibility="invisible"-->
+        <!--            android:layout_marginLeft="20dp"-->
+        <!--            android:layout_marginTop="20dp"-->
+        <!--            android:text="추천 작품들"-->
+        <!--            android:textSize="20sp"-->
+        <!--            android:textColor="@color/black"/>-->
 
-<!--        <HorizontalScrollView-->
-<!--            android:id="@+id/searchRecs"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="250dp"-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            android:layout_marginBottom="20dp"-->
-<!--            android:visibility="invisible"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/rvSearched">-->
+        <!--        <HorizontalScrollView-->
+        <!--            android:id="@+id/searchRecs"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="250dp"-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:layout_marginBottom="20dp"-->
+        <!--            android:visibility="invisible"-->
+        <!--            app:layout_constraintTop_toBottomOf="@id/rvSearched">-->
 
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:orientation="horizontal">-->
+        <!--            <LinearLayout-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:orientation="horizontal">-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:orientation="vertical">-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="150dp"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginLeft="20dp"-->
+        <!--                    android:orientation="vertical">-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/recTitle1"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="이기적 유전자"-->
-<!--                        android:textSize="13sp"-->
-<!--                        android:textColor="@color/white"/>-->
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/recTitle1"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="이기적 유전자"-->
+        <!--                        android:textSize="13sp"-->
+        <!--                        android:textColor="@color/white"/>-->
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/recPoster1"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:src="@drawable/img_book_example"/>-->
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/recPoster1"-->
+        <!--                        android:layout_width="match_parent"-->
+        <!--                        android:layout_height="0dp"-->
+        <!--                        android:layout_weight="1"-->
+        <!--                        android:layout_marginTop="10dp"-->
+        <!--                        android:src="@drawable/img_book_example"/>-->
 
-<!--                </LinearLayout>-->
+        <!--                </LinearLayout>-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:orientation="vertical">-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="150dp"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginLeft="20dp"-->
+        <!--                    android:orientation="vertical">-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/recTitle2"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="이기적 유전자"-->
-<!--                        android:textSize="13sp"-->
-<!--                        android:textColor="@color/white"/>-->
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/recTitle2"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="이기적 유전자"-->
+        <!--                        android:textSize="13sp"-->
+        <!--                        android:textColor="@color/white"/>-->
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/recPoster2"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:src="@drawable/img_book_example"/>-->
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/recPoster2"-->
+        <!--                        android:layout_width="match_parent"-->
+        <!--                        android:layout_height="0dp"-->
+        <!--                        android:layout_weight="1"-->
+        <!--                        android:layout_marginTop="10dp"-->
+        <!--                        android:src="@drawable/img_book_example"/>-->
 
-<!--                </LinearLayout>-->
+        <!--                </LinearLayout>-->
 
-<!--                <LinearLayout-->
-<!--                    android:layout_width="150dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginLeft="20dp"-->
-<!--                    android:orientation="vertical">-->
+        <!--                <LinearLayout-->
+        <!--                    android:layout_width="150dp"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginLeft="20dp"-->
+        <!--                    android:orientation="vertical">-->
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/recTitle3"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="이기적 유전자"-->
-<!--                        android:textSize="13sp"-->
-<!--                        android:textColor="@color/white"/>-->
+        <!--                    <TextView-->
+        <!--                        android:id="@+id/recTitle3"-->
+        <!--                        android:layout_width="wrap_content"-->
+        <!--                        android:layout_height="wrap_content"-->
+        <!--                        android:text="이기적 유전자"-->
+        <!--                        android:textSize="13sp"-->
+        <!--                        android:textColor="@color/white"/>-->
 
-<!--                    <ImageView-->
-<!--                        android:id="@+id/recPoster3"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="0dp"-->
-<!--                        android:layout_weight="1"-->
-<!--                        android:layout_marginTop="10dp"-->
-<!--                        android:src="@drawable/img_book_example"/>-->
+        <!--                    <ImageView-->
+        <!--                        android:id="@+id/recPoster3"-->
+        <!--                        android:layout_width="match_parent"-->
+        <!--                        android:layout_height="0dp"-->
+        <!--                        android:layout_weight="1"-->
+        <!--                        android:layout_marginTop="10dp"-->
+        <!--                        android:src="@drawable/img_book_example"/>-->
 
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--        </HorizontalScrollView>-->
+        <!--                </LinearLayout>-->
+        <!--            </LinearLayout>-->
+        <!--        </HorizontalScrollView>-->
 
 
 

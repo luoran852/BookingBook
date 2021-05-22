@@ -39,7 +39,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.MyViewHolder holder, int position) {
-                Glide.with(holder.itemView.getContext())
+        Glide.with(holder.itemView.getContext())
                 .load(books.get(position).getImage())
                 .into(holder.poster);
     }

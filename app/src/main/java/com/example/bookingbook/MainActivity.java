@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -50,5 +52,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {                            // 액티비티를 종료하면 호출, finsh() 또는 휴대폰 뒤로가기 버튼
+        super.onDestroy();
+        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.commit();
+        Toast.makeText(this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
     }
 }
