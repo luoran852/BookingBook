@@ -27,7 +27,7 @@ public class Book {
     }
 
     public Book(String image, String author, String price, String isbn, String link, String discount,
-                 String publisher, String description, String title, String pubdate) {
+                String publisher, String description, String title, String pubdate) {
         this.image = image;
         this.author = author;
         this.price = price;

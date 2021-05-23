@@ -112,20 +112,26 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
 
                 sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
                 String name = sharedPreferences.getString("login","noname");
-                userReference.child("users").child(name).child("rental").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Successfully rented.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "rental Failure", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
+                if(name.equals("noname"))
+                {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스입니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    userReference.child("users").child(name).child("rental").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Successfully rented.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "rental Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
+
 
         // 반납버튼 클릭
         btn_return.setOnClickListener(new View.OnClickListener() {
@@ -137,17 +143,23 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
                 sharedPreferences= getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
                 String name = sharedPreferences.getString("login","noname");
 
-                userDatabase.getReference().child("users").child(name).child("rental").child(isbn).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Successfully returned", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "return Failure", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                if(name.equals("noname"))
+                {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스 입니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    userDatabase.getReference().child("users").child(name).child("rental").child(isbn).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Successfully returned", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "return Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
         });
 
@@ -171,17 +183,26 @@ public class BookDetailsActivity extends AppCompatActivity implements Serializab
                 Book book = new Book(image, author, price, isbn, link, discount, publisher, description, title, pubdate);
                 sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
                 String name = sharedPreferences.getString("login","noname");
-                userReference.child("users").child(name).child("favorite").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(getApplicationContext(), "Successfully kept.", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getApplicationContext(), "keep Failure", Toast.LENGTH_SHORT).show();
-                    }
-                });
+
+                if(name.equals("noname"))
+                {
+                    Toast.makeText(getApplicationContext(), "로그인이 필요한 서비스 입니다.", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    userReference.child("users").child(name).child("favorite").child(isbn).setValue(book).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getApplicationContext(), "Successfully kept.", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getApplicationContext(), "keep Failure", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
             }
         });
 

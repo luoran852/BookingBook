@@ -57,10 +57,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {                            // 액티비티를 종료하면 호출, finsh() 또는 휴대폰 뒤로가기 버튼
         super.onDestroy();
-        SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.clear();
-        editor.commit();
-        Toast.makeText(this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = getSharedPreferences("login", MODE_PRIVATE);    // test 이름의 기본모드 설정, 만약 test key값이 있다면 해당 값을 불러옴.
+        String name = sharedPreferences.getString("login","noname");
+        if(!name.equals("noname"))
+        {
+            SharedPreferences pref = getSharedPreferences("login", MODE_PRIVATE);
+            SharedPreferences.Editor editor = pref.edit();
+            editor.clear();
+            editor.commit();
+            Toast.makeText(this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 }
