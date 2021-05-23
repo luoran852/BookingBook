@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -39,6 +42,7 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
     private ArrayList<Items> rentalBooks = new ArrayList<Items>();
     private ArrayList<Items> keptBooks = new ArrayList<Items>();
     private Button btn_login; // 로그인 버튼
+    private TextView txt_keep, txt_record, txt_before_login;
 
     SharedPreferences sharedPreferences;
     private FirebaseDatabase userDatabase = FirebaseDatabase.getInstance();
@@ -130,6 +134,20 @@ public class MyPageFragment extends Fragment implements RecyclerViewAdapter.OnBo
         recyclerView_record.setHasFixedSize(true);
         recyclerView_record.setLayoutManager(linearLayoutManager);
         recyclerView_record.setAdapter(keepAdapter);
+
+        txt_keep = (TextView) view.findViewById(R.id.txt_keep);
+        txt_record = (TextView) view.findViewById(R.id.txt_record);
+        txt_before_login = (TextView) view.findViewById(R.id.txt_before_login);
+
+        // 비로그인 상태일 때 리싸이클러뷰 안 보이게
+        if (name.equals("noname")) {
+            txt_keep.setVisibility(View.INVISIBLE);
+            txt_record.setVisibility(View.INVISIBLE);
+            recyclerView_keep.setVisibility(View.INVISIBLE);
+            recyclerView_record.setVisibility(View.INVISIBLE);
+            txt_before_login.setVisibility(View.VISIBLE);
+        }
+
 
         btn_login = (Button) getView().findViewById(R.id.btn_login);
 
