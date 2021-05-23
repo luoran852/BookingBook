@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.json.JSONArray;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -124,7 +125,7 @@ public class SearchFragment extends Fragment implements RvAdapter.OnBookClickLis
         //searchedItems.add(new ItemSearched(R.drawable.img_book_example2, search, "2016", "기시미 이치로", "전경아", "인플루엔셜"));
         mRecyclerView = (RecyclerView)view.findViewById(R.id.rvSearched);
         mLayoutManager = new LinearLayoutManager(getActivity());
-        mAdapter = new RvAdapter(searchedItems, this);
+        mAdapter = new RvAdapter(getContext(), books, this);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -142,8 +143,11 @@ public class SearchFragment extends Fragment implements RvAdapter.OnBookClickLis
                 Items[] booksSearched = response.body().getItems();
                 for (int i=0; i<total; i++) {
                     Log.d("Response", String.valueOf(booksSearched[i]));
-                    searchedItems.add(new ItemSearched(booksSearched[i].getImage(), booksSearched[i].getTitle(), booksSearched[i].getPubdate(),
-                            booksSearched[i].getAuthor(), booksSearched[i].getPublisher()));
+//                    searchedItems.add(new ItemSearched(booksSearched[i].getImage(), booksSearched[i].getTitle(), booksSearched[i].getPubdate(),
+//                            booksSearched[i].getAuthor(), booksSearched[i].getPublisher()));
+                    Items book = booksSearched[i];
+                    books.add(new Items(book.getImage(), book.getAuthor(), book.getPrice(), book.getIsbn(), book.getLink(), book.getDiscount(),
+                            book.getPublisher(), book.getDescription(), book.getTitle(), book.getPubdate()));
                     mAdapter.notifyDataSetChanged();
                 }
             }
@@ -163,12 +167,12 @@ public class SearchFragment extends Fragment implements RvAdapter.OnBookClickLis
 
 
     @Override
-    public void onBookClick(int position) {
+    public void onBookClick(int position, ArrayList<Items> book) {
         Log.e(TAG, "onBookClick: 책 아이템이 클릭됨" + position);
 
         // 세부 액티비티로 이동
         Intent intent = new Intent(getActivity(), BookDetailsActivity.class);
-        intent.putExtra("bookList", books);
+        intent.putExtra("bookList", (Serializable)book.get(position));
         intent.putExtra("position", position);
         startActivity(intent);
     }
